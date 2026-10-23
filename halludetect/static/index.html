@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HalluGuard</title>
+<style>
+:root{--bg:#f7f7f5;--fg:#1b1f23;--mut:#5f6872;--card:#fff;--bd:#d9dcdf;--ok:#17703a;--bad:#b3261e;--warn:#9a5b00;--ac:#1f4e79}
+@media(prefers-color-scheme:dark){:root{--bg:#14171a;--fg:#e8eaec;--mut:#94a0ab;--card:#1d2125;--bd:#33393f;--ok:#56c27a;--bad:#ff7b72;--warn:#e8b04a;--ac:#7fb2e5}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:920px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;margin:0}h2{font-size:1.1rem;margin:0 0 10px}
+.sub{color:var(--mut);margin:4px 0 24px}section{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:16px;margin-bottom:16px}
+input,select,button{font:inherit;padding:8px 10px;border:1px solid var(--bd);border-radius:4px;background:var(--bg);color:var(--fg)}
+input[type=text]{width:100%;margin-bottom:8px}button{background:var(--ac);color:var(--bg);border-color:var(--ac);cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>input[type=text]{flex:1;min-width:220px;margin:0}
+.step{border-left:4px solid var(--bd);padding:6px 12px;margin:10px 0}.step.ok{border-color:var(--ok)}.step.bad{border-color:var(--bad)}
+.tag{font-weight:600}.ok .tag{color:var(--ok)}.bad .tag{color:var(--bad)}.mut{color:var(--mut);font-size:.9rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:left}
+.scroll{overflow-x:auto}
+</style></head><body><main>
+<h1>HalluGuard</h1><p class="sub">Single-pass hallucination detection with a verification engine in the generation loop. No multi-sample entropy.</p>
+
+<section><h2>Guarded generation</h2>
+<div class="row"><input type="text" id="q" list="qs" value="What is the capital of Australia?" aria-label="Question"><button onclick="guard()">Generate and verify</button></div>
+<datalist id="qs"></datalist><div id="gout"></div></section>
+
+<section><h2>Check an answer</h2>
+<input type="text" id="cq" value="In which year was Microsoft founded?" aria-label="Question">
+<div class="row"><input type="text" id="ca" value="1985" aria-label="Answer">
+<label>Model confidence <input type="range" id="cc" min="0.1" max="0.99" step="0.01" value="0.95"> <span id="ccv">0.95</span></label>
+<button onclick="check()">Check</button></div><div id="cout"></div></section>
+
+<section><h2>Evaluation on held-out test split</h2><div id="mout" class="scroll">Loading…</div>
+<p class="mut" id="note"></p></section>
+</main><script>
+const $=i=>document.getElementById(i),post=(u,b)=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json());
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+$('cc').oninput=e=>$('ccv').textContent=e.target.value;
+fetch('/api/questions').then(r=>r.json()).then(a=>$('qs').innerHTML=a.map(x=>`<option value="${esc(x)}">`).join(''));
+async function guard(){const g=await post('/api/guarded',{question:$('q').value});
+ $('gout').innerHTML=g.trace.map(t=>`<div class="step ${t.flagged?'bad':'ok'}"><span class="tag">Attempt ${t.attempt+1}: ${t.flagged?'flagged':'accepted'}</span>
+ ${t.grounded?'<span class="mut">(regenerated with evidence)</span>':''}<br>Answer: <b>${esc(t.answer)}</b><br>
+ <span class="mut">P(hallucination) ${t.p_hallucination} vs threshold ${t.threshold} · ${t.verdict}${t.evidence?' · evidence: '+esc(t.evidence):''}</span></div>`).join('')
+ +`<p><b>${g.status==='accepted'?'Final answer':'Abstained'}:</b> ${esc(g.final)}</p>`}
+async function check(){const c=await post('/api/check',{question:$('cq').value,answer:$('ca').value,confidence:+$('cc').value});
+ $('cout').innerHTML=`<div class="step ${c.flagged?'bad':'ok'}"><span class="tag">${c.flagged?'Likely hallucination':'Looks reliable'}</span>
+ · P=${c.p_hallucination} (threshold ${c.threshold}) · ${c.verdict}<br><span class="mut">${c.evidence?'Evidence: '+esc(c.evidence):'No matching evidence in the knowledge base'}<br>${esc(c.guarantee)}</span></div>`}
+fetch('/api/metrics').then(r=>r.json()).then(m=>{const k=Object.entries(m.methods);
+ $('mout').innerHTML=`<table><tr><th>Method</th><th>AUROC</th><th>Recall</th><th>Recall on confidently wrong</th><th>False alarms</th></tr>`+
+ k.map(([n,v])=>`<tr><td>${esc(n)}</td><td>${v.auroc}</td><td>${v.recall}</td><td>${v.recall_confident_wrong}</td><td>${v.false_alarm}</td></tr>`).join('')+
+ `</table><p class="mut">Target miss-rate α = ${m.meta.alpha}; test set: ${m.meta.test_size} samples, ${m.meta.hallucinations} hallucinations, ${m.meta.confidently_wrong} confidently wrong.</p>`});
+guard();
+fetch('/api/metrics').then(r=>r.json()).then(m=>$('note').textContent='Dataset: '+m.source+'. Token log-probabilities are simulated (about half of wrong answers get high confidence), so an uncertainty-only detector cannot separate them from correct answers.');
+</script></body></html>

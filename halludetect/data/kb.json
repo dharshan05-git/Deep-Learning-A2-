@@ -1,0 +1,218 @@
+[
+ {
+  "q": "What is the capital of Australia?",
+  "s": "Canberra is the capital of Australia.",
+  "a": "Canberra",
+  "w": [
+   "Sydney",
+   "Melbourne"
+  ]
+ },
+ {
+  "q": "Who wrote Pride and Prejudice?",
+  "s": "Jane Austen wrote Pride and Prejudice in 1813.",
+  "a": "Jane Austen",
+  "w": [
+   "Charlotte Bronte",
+   "Emily Dickinson"
+  ]
+ },
+ {
+  "q": "At what temperature does water boil at sea level?",
+  "s": "Water boils at 100 degrees Celsius at sea level.",
+  "a": "100 degrees Celsius",
+  "w": [
+   "90 degrees Celsius",
+   "110 degrees Celsius"
+  ]
+ },
+ {
+  "q": "Which is the largest planet in the Solar System?",
+  "s": "Jupiter is the largest planet in the Solar System.",
+  "a": "Jupiter",
+  "w": [
+   "Saturn",
+   "Neptune"
+  ]
+ },
+ {
+  "q": "In which year did humans first land on the Moon?",
+  "s": "Apollo 11 landed humans on the Moon in 1969.",
+  "a": "1969",
+  "w": [
+   "1972",
+   "1965"
+  ]
+ },
+ {
+  "q": "What is the chemical symbol for gold?",
+  "s": "The chemical symbol for gold is Au.",
+  "a": "Au",
+  "w": [
+   "Ag",
+   "Gd"
+  ]
+ },
+ {
+  "q": "Who painted the Mona Lisa?",
+  "s": "Leonardo da Vinci painted the Mona Lisa.",
+  "a": "Leonardo da Vinci",
+  "w": [
+   "Michelangelo",
+   "Raphael"
+  ]
+ },
+ {
+  "q": "What is the speed of light in vacuum?",
+  "s": "The speed of light in vacuum is about 299792 kilometres per second.",
+  "a": "299792 kilometres per second",
+  "w": [
+   "186000 kilometres per second",
+   "450000 kilometres per second"
+  ]
+ },
+ {
+  "q": "What is the highest mountain above sea level?",
+  "s": "Mount Everest is the highest mountain above sea level.",
+  "a": "Mount Everest",
+  "w": [
+   "K2",
+   "Kangchenjunga"
+  ]
+ },
+ {
+  "q": "Which gas do plants absorb during photosynthesis?",
+  "s": "Plants absorb carbon dioxide during photosynthesis.",
+  "a": "carbon dioxide",
+  "w": [
+   "oxygen",
+   "nitrogen"
+  ]
+ },
+ {
+  "q": "Who developed the theory of general relativity?",
+  "s": "Albert Einstein developed the theory of general relativity.",
+  "a": "Albert Einstein",
+  "w": [
+   "Isaac Newton",
+   "Niels Bohr"
+  ]
+ },
+ {
+  "q": "What is the currency of Japan?",
+  "s": "The currency of Japan is the yen.",
+  "a": "yen",
+  "w": [
+   "won",
+   "yuan"
+  ]
+ },
+ {
+  "q": "How many continents are there?",
+  "s": "There are 7 continents on Earth.",
+  "a": "7",
+  "w": [
+   "5",
+   "9"
+  ]
+ },
+ {
+  "q": "Who discovered penicillin?",
+  "s": "Alexander Fleming discovered penicillin in 1928.",
+  "a": "Alexander Fleming",
+  "w": [
+   "Louis Pasteur",
+   "Marie Curie"
+  ]
+ },
+ {
+  "q": "What is the capital of Canada?",
+  "s": "Ottawa is the capital of Canada.",
+  "a": "Ottawa",
+  "w": [
+   "Toronto",
+   "Vancouver"
+  ]
+ },
+ {
+  "q": "What is the smallest prime number?",
+  "s": "The smallest prime number is 2.",
+  "a": "2",
+  "w": [
+   "1",
+   "3"
+  ]
+ },
+ {
+  "q": "Who wrote Hamlet?",
+  "s": "William Shakespeare wrote Hamlet.",
+  "a": "William Shakespeare",
+  "w": [
+   "Christopher Marlowe",
+   "Charles Dickens"
+  ]
+ },
+ {
+  "q": "What is the hardest natural substance?",
+  "s": "Diamond is the hardest natural substance.",
+  "a": "Diamond",
+  "w": [
+   "Quartz",
+   "Graphite"
+  ]
+ },
+ {
+  "q": "In which year was Microsoft founded?",
+  "s": "Microsoft was founded in 1975 by Bill Gates and Paul Allen.",
+  "a": "1975",
+  "w": [
+   "1985",
+   "1969"
+  ]
+ },
+ {
+  "q": "Which planet is closest to the Sun?",
+  "s": "Mercury is the planet closest to the Sun.",
+  "a": "Mercury",
+  "w": [
+   "Venus",
+   "Mars"
+  ]
+ },
+ {
+  "q": "Who invented the telephone?",
+  "s": "Alexander Graham Bell invented the telephone.",
+  "a": "Alexander Graham Bell",
+  "w": [
+   "Thomas Edison",
+   "Nikola Tesla"
+  ]
+ },
+ {
+  "q": "What is the capital of India?",
+  "s": "New Delhi is the capital of India.",
+  "a": "New Delhi",
+  "w": [
+   "Mumbai",
+   "Kolkata"
+  ]
+ },
+ {
+  "q": "What is the chemical formula of water?",
+  "s": "The chemical formula of water is H2O.",
+  "a": "H2O",
+  "w": [
+   "H2O2",
+   "CO2"
+  ]
+ },
+ {
+  "q": "Which organ pumps blood through the human body?",
+  "s": "The heart pumps blood through the human body.",
+  "a": "heart",
+  "w": [
+   "liver",
+   "lungs"
+  ]
+ }
+]
